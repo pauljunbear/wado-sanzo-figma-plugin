@@ -153,7 +153,6 @@ const App: React.FC = () => {
             ← Back
           </button>
         )}
-        <button className="settings-button">⚙️</button>
         <button className="generate-button" onClick={handleGenerate}>
           <span className="plus-icon">+</span>
           Generate
