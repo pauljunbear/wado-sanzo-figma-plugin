@@ -1,0 +1,406 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 16px;
+  background-color: #1E1E1E;
+  color: #333;
+}
+
+.container {
+  background-color: #F5F5F5;
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 600px;
+}
+
+h1 {
+  font-size: 24px;
+  color: #666;
+  margin: 0 0 20px 0;
+  font-weight: 500;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.search-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #EAEAEA;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.search-icon, .mic-icon {
+  color: #666;
+  font-size: 18px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 8px;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+}
+
+.settings-button, .generate-button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.generate-button {
+  background-color: #EAEAEA;
+  border-radius: 8px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.generate-button:hover {
+  background-color: #F0F0F0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.generate-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.plus-icon {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.selected-color-details {
+  margin-top: 24px;
+}
+
+.color-preview-large {
+  width: 100%;
+  height: 120px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.color-info {
+  margin-bottom: 24px;
+}
+
+.color-info h2 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.hex-code {
+  color: #666;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.color-values {
+  color: #666;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+.combinations-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.combination-set {
+  margin-bottom: 16px;
+}
+
+.combination-set h3 {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.combination-swatches {
+  display: flex;
+  gap: 8px;
+}
+
+.combo-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.1s ease;
+}
+
+.combo-swatch:hover {
+  transform: scale(1.05);
+}
+
+.combo-swatch:active {
+  transform: scale(0.95);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.color-item {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.color-item:hover {
+  transform: translateY(-2px);
+}
+
+.color-swatch {
+  width: 100%;
+  height: 120px;
+}
+
+.color-label {
+  padding: 12px;
+}
+
+.color-name {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.color-hex {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.combinations-count {
+  display: block;
+  font-size: 14px;
+  color: #666;
+}
+
+.selected-color {
+  position: sticky;
+  top: 60px;
+  z-index: 90;
+  background-color: #3c3c3c;
+  padding: 16px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.color-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+}
+
+.color-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.color-info h3 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.color-info p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.color-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4c4c4c;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+button:hover {
+  background-color: #5c5c5c;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.back-button:hover {
+  color: #333;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4c4c4c;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5c5c5c;
+}
+
+.combinations-info {
+  padding: 16px;
+  margin-bottom: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.combinations-info h4 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.combination-group {
+  margin-bottom: 16px;
+}
+
+.combination-group p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.color-combo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.color-combo-item .swatch {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.color-combo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.color-combo-info .color-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.color-combo-info .color-hex {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.copy-button {
+  padding: 6px 12px;
+  font-size: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: auto;
+  min-width: 60px;
+}
+
+.copy-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.copy-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeInOut 1s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, 4px); }
+  15% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -4px); }
+} 
