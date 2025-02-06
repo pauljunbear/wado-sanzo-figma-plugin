@@ -1,3 +1,67 @@
+# Sanzo Wada Color Library - Figma Plugin
+
+A Figma plugin that brings Sanzo Wada's "A Dictionary of Color Combinations" to life in your design workflow. This plugin provides easy access to Sanzo Wada's carefully curated color combinations, allowing designers to explore and apply these historically significant color palettes in their work.
+
+## Features
+
+- 🎨 Browse through Sanzo Wada's complete color collection
+- 🔍 Search colors by name or hex value
+- 🎲 Generate random color combinations
+- 📋 One-click copy of color values
+- 🎯 Direct application of colors to Figma elements
+- 💫 Modern, intuitive interface
+
+## Installation
+
+1. Open Figma
+2. Go to Menu > Plugins > Browse Plugins in Community
+3. Search for "Sanzo Wada Color Library"
+4. Click "Install"
+
+## Usage
+
+1. Select an element in your Figma design
+2. Right-click > Plugins > Sanzo Wada Color Library
+3. Browse or search for colors
+4. Click on a color to view its combinations
+5. Click the "Generate" button to discover random color combinations
+6. Click on any color swatch to apply it to your selected element
+
+## Development
+
+To work on this plugin locally:
+
+1. Clone this repository
+```bash
+git clone [repository-url]
+cd wado-sanzo-color
+```
+
+2. Install dependencies
+```bash
+npm install
+```
+
+3. Build the plugin
+```bash
+npm run build
+```
+
+4. Import the plugin in Figma Desktop app:
+   - Go to Plugins > Development > Import plugin from manifest
+   - Select the `manifest.json` file from this project
+
+## Credits
+
+This plugin is based on Sanzo Wada's work "A Dictionary of Color Combinations" (早稲田, 三造, 1883-1967) and inspired by:
+
+- [Sanzo Wada Color Combinations](https://sanzo-wada.dmbk.io/) by Dain M. Blodorn Kim
+- [Dictionary Of Color Combinations](https://github.com/dblodorn/sanzo-wada) color data
+
+## License
+
+MIT License - feel free to use this in your own projects!
+
 Below are the steps to get your plugin running. You can also find instructions at:
 
   https://www.figma.com/plugin-docs/plugin-quickstart-guide/
