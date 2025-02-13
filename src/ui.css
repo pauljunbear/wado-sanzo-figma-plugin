@@ -7,7 +7,7 @@ body {
 }
 
 .container {
-  background-color: #F5F5F5;
+  background-color: #ffffff;
   border-radius: 16px;
   padding: 20px;
   max-width: 800px;
@@ -172,24 +172,63 @@ h1 {
 }
 
 .color-item {
-  background: white;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
 }
 
-.color-item:hover {
-  transform: translateY(-2px);
+.glass-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.color-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  margin: -20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.color-item:hover::before {
+  opacity: 1;
 }
 
 .color-swatch {
   width: 100%;
   height: 120px;
+  position: relative;
+  z-index: 1;
 }
 
 .color-label {
-  padding: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .color-name {
@@ -197,6 +236,7 @@ h1 {
   font-size: 16px;
   margin-bottom: 4px;
   color: #333;
+  font-weight: 500;
 }
 
 .color-hex {
@@ -210,6 +250,43 @@ h1 {
   display: block;
   font-size: 14px;
   color: #666;
+}
+
+.color-item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+  z-index: 1;
+}
+
+.color-item:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.05)
+  );
+  pointer-events: none;
+}
+
+.color-item:hover .color-label {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+.color-item:hover .color-name {
+  color: #000;
+}
+
+.color-item:hover .color-hex {
+  color: #444;
+}
+
+.color-item:hover .combinations-count {
+  color: #444;
 }
 
 .selected-color {
@@ -292,16 +369,18 @@ button:hover {
 }
 
 ::-webkit-scrollbar-track {
-  background: #2c2c2c;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #4c4c4c;
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 4px;
 }
 
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #5c5c5c;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .combinations-info {

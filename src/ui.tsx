@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
+import { motion, AnimatePresence } from 'framer-motion';
 import { colorData } from './colorData';
 import './ui.css';
 
@@ -23,6 +24,65 @@ interface ColorCombo {
     name: string;
   }>;
 }
+
+interface ColorCardProps {
+  color: Color;
+  onClick: (color: Color) => void;
+}
+
+const calculateCombinations = (color: Color): ColorCombo[] => {
+  const colorCombos = color.combinations.map((comboId: number) => {
+    const comboColors = colorData.colors.filter(c => 
+      c.combinations.includes(comboId) && c !== color
+    );
+    return {
+      id: comboId,
+      colors: comboColors.map(c => ({
+        hex: c.hex,
+        name: c.name
+      }))
+    };
+  });
+  return colorCombos;
+};
+
+const ColorCard: React.FC<ColorCardProps> = ({ color, onClick }) => {
+  return (
+    <motion.div
+      className="color-item"
+      onClick={() => onClick(color)}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{
+        y: -8,
+        scale: 1.02,
+        transition: { type: "spring", stiffness: 300, damping: 20 }
+      }}
+      whileTap={{ scale: 0.98 }}
+    >
+      <motion.div
+        className="glass-overlay"
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+      />
+      <motion.div
+        className="color-swatch"
+        style={{ backgroundColor: color.hex }}
+      />
+      <motion.div 
+        className="color-label"
+        whileHover={{ y: -2 }}
+      >
+        <span className="color-name">{color.name}</span>
+        <span className="color-hex">hex: {color.hex}</span>
+        <span className="combinations-count">
+          {calculateCombinations(color).length} combinations
+        </span>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -58,22 +118,6 @@ const App: React.FC = () => {
       }
     };
   }, []);
-
-  const calculateCombinations = (color: Color): ColorCombo[] => {
-    const colorCombos = color.combinations.map((comboId: number) => {
-      const comboColors = colorData.colors.filter(c => 
-        c.combinations.includes(comboId) && c !== color
-      );
-      return {
-        id: comboId,
-        colors: comboColors.map(c => ({
-          hex: c.hex,
-          name: c.name
-        }))
-      };
-    });
-    return colorCombos;
-  };
 
   const handleColorClick = (color: Color) => {
     const colorCombos = calculateCombinations(color);
@@ -134,7 +178,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="container" ref={containerRef}>
+    <motion.div 
+      className="container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <h1>Sanzo Wada Color Library</h1>
       
       <div className="header">
@@ -205,30 +254,25 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {view === 'grid' && (
-        <div className="color-grid">
-          {filteredColors.map((color: Color, index: number) => (
-            <div
-              key={index}
-              className="color-item"
-              onClick={() => handleColorClick(color)}
-            >
-              <div
-                className="color-swatch"
-                style={{ backgroundColor: color.hex }}
+      <AnimatePresence>
+        {view === 'grid' && (
+          <motion.div 
+            className="color-grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {filteredColors.map((color: Color, index: number) => (
+              <ColorCard 
+                key={color.hex} 
+                color={color} 
+                onClick={handleColorClick}
               />
-              <div className="color-label">
-                <span className="color-name">{color.name}</span>
-                <span className="color-hex">hex: {color.hex}</span>
-                <span className="combinations-count">
-                  {calculateCombinations(color).length} combinations
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 
