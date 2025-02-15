@@ -1,5 +1,9 @@
 # Sanzo Wada Color Library - Figma Plugin
 
+<img width="300" alt="Screenshot 2025-02-06 at 4 38 40 PM" src="https://github.com/user-attachments/assets/5e5d8bfb-141c-4cb9-8ba2-0a6c9d7c41cc" />
+<img width="300" alt="Screenshot 2025-02-06 at 4 39 06 PM" src="https://github.com/user-attachments/assets/b6f0d328-c52a-471f-b009-663407724e89" />
+
+
 A Figma plugin that brings Sanzo Wada's "A Dictionary of Color Combinations" to life in your design workflow. This plugin provides easy access to Sanzo Wada's carefully curated color combinations, allowing designers to explore and apply these historically significant color palettes in their work.
 
 ## Features
