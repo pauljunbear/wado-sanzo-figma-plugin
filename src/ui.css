@@ -9,24 +9,24 @@ body {
 .container {
   background-color: #ffffff;
   border-radius: 16px;
-  padding: 20px;
-  max-width: 800px;
+  padding: 16px;
+  max-width: 560px;
   margin: 0 auto;
-  min-height: 600px;
+  min-height: 420px;
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 20px;
   color: #666;
-  margin: 0 0 20px 0;
+  margin: 0 0 16px 0;
   font-weight: 500;
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .search-container {
@@ -35,7 +35,7 @@ h1 {
   align-items: center;
   background-color: #EAEAEA;
   border-radius: 8px;
-  padding: 8px 12px;
+  padding: 6px 10px;
 }
 
 .search-icon, .mic-icon {
@@ -47,8 +47,8 @@ h1 {
   flex: 1;
   border: none;
   background: none;
-  padding: 8px;
-  font-size: 16px;
+  padding: 6px;
+  font-size: 14px;
   color: #333;
   outline: none;
 }
@@ -128,28 +128,28 @@ h1 {
 
 .combinations-grid {
   display: grid;
-  gap: 24px;
+  gap: 16px;
 }
 
 .combination-set {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .combination-set h3 {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
-  margin: 0 0 8px 0;
+  margin: 0 0 6px 0;
   font-weight: 500;
 }
 
 .combination-swatches {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .combo-swatch {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
@@ -166,9 +166,9 @@ h1 {
 
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
 }
 
 .color-item {
@@ -217,13 +217,13 @@ h1 {
 
 .color-swatch {
   width: 100%;
-  height: 120px;
+  height: 100px;
   position: relative;
   z-index: 1;
 }
 
 .color-label {
-  padding: 16px;
+  padding: 12px;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
   position: relative;
@@ -232,23 +232,20 @@ h1 {
 }
 
 .color-name {
-  display: block;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 4px;
   color: #333;
   font-weight: 500;
 }
 
 .color-hex {
-  display: block;
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
   margin-bottom: 4px;
 }
 
 .combinations-count {
-  display: block;
-  font-size: 14px;
+  font-size: 12px;
   color: #666;
 }
 
