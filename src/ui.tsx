@@ -30,6 +30,13 @@ interface ColorCardProps {
   onClick: (color: Color) => void;
 }
 
+interface GradientButtonsProps {
+  colors: Array<{
+    hex: string;
+    name: string;
+  }>;
+}
+
 const calculateCombinations = (color: Color): ColorCombo[] => {
   const colorCombos = color.combinations.map((comboId: number) => {
     const comboColors = colorData.colors.filter(c => 
@@ -81,6 +88,54 @@ const ColorCard: React.FC<ColorCardProps> = ({ color, onClick }) => {
         </span>
       </motion.div>
     </motion.div>
+  );
+};
+
+const GradientButtons: React.FC<GradientButtonsProps> = ({ colors }) => {
+  const handleGradient = (type: 'LINEAR' | 'RADIAL' | 'ANGULAR' | 'DIAMOND') => {
+    parent.postMessage({ 
+      pluginMessage: { 
+        type: 'apply-gradient',
+        gradientType: type,
+        colors: colors.map(c => ({
+          hex: c.hex,
+          name: c.name
+        }))
+      } 
+    }, '*');
+  };
+
+  return (
+    <div className="gradient-actions">
+      <button 
+        className="gradient-button"
+        onClick={() => handleGradient('LINEAR')}
+        title="Apply as linear gradient"
+      >
+        ↗️ Linear
+      </button>
+      <button 
+        className="gradient-button"
+        onClick={() => handleGradient('RADIAL')}
+        title="Apply as radial gradient"
+      >
+        ⭕️ Radial
+      </button>
+      <button 
+        className="gradient-button"
+        onClick={() => handleGradient('ANGULAR')}
+        title="Apply as angular gradient"
+      >
+        🔄 Angular
+      </button>
+      <button 
+        className="gradient-button"
+        onClick={() => handleGradient('DIAMOND')}
+        title="Apply as diamond gradient"
+      >
+        💎 Diamond
+      </button>
+    </div>
   );
 };
 
@@ -222,32 +277,33 @@ const App: React.FC = () => {
           <div className="combinations-grid">
             {combinations.map((combo, index) => (
               <div key={combo.id} className="combination-set">
-                <h3>Set {index + 1}</h3>
-                <div className="combination-swatches">
-                  {[selectedColor, ...combo.colors].map((color, i) => (
-                    <div
-                      key={i}
-                      className="combo-swatch"
-                      style={{ backgroundColor: color.hex }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopyHex(color.hex);
-                        
-                        // Show tooltip
-                        const target = e.currentTarget;
-                        const tooltip = document.createElement('div');
-                        tooltip.className = 'copy-tooltip';
-                        tooltip.textContent = 'Copied!';
-                        target.appendChild(tooltip);
-                        
-                        // Remove tooltip after animation
-                        setTimeout(() => {
-                          target.removeChild(tooltip);
-                        }, 1000);
-                      }}
-                    />
-                  ))}
+                <div className="combination-content">
+                  <h3>Set {index + 1}</h3>
+                  <div className="combination-swatches">
+                    {[selectedColor, ...combo.colors].map((color, i) => (
+                      <div
+                        key={i}
+                        className="combo-swatch"
+                        style={{ backgroundColor: color.hex }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCopyHex(color.hex);
+                          
+                          const target = e.currentTarget;
+                          const tooltip = document.createElement('div');
+                          tooltip.className = 'copy-tooltip';
+                          tooltip.textContent = 'Copied!';
+                          target.appendChild(tooltip);
+                          
+                          setTimeout(() => {
+                            target.removeChild(tooltip);
+                          }, 1000);
+                        }}
+                      />
+                    ))}
+                  </div>
                 </div>
+                <GradientButtons colors={[selectedColor, ...combo.colors]} />
               </div>
             ))}
           </div>
