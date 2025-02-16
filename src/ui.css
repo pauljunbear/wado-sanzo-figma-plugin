@@ -132,10 +132,13 @@ h1 {
 }
 
 .combination-set {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 12px;
+  border-radius: 8px;
 }
 
 .combination-content {
@@ -498,34 +501,35 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 100px;
 }
 
 .gradient-button {
-  padding: 6px 8px;
+  padding: 8px 12px;
   font-size: 12px;
-  background-color: rgba(0, 0, 0, 0.06);
+  background-color: #EAEAEA;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
+  border-radius: 6px;
   color: #333;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   white-space: nowrap;
 }
 
 .gradient-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #F0F0F0;
   transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .gradient-button:active {
   transform: translateY(0);
+  box-shadow: none;
 }
 
-.gradient-button svg {
-  width: 14px;
-  height: 14px;
-  opacity: 0.7;
+.gradient-button span {
+  font-size: 14px;
 } 

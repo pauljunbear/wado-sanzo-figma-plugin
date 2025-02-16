@@ -112,28 +112,32 @@ const GradientButtons: React.FC<GradientButtonsProps> = ({ colors }) => {
         onClick={() => handleGradient('LINEAR')}
         title="Apply as linear gradient"
       >
-        ↗️ Linear
+        <span>↗️</span>
+        Linear
       </button>
       <button 
         className="gradient-button"
         onClick={() => handleGradient('RADIAL')}
         title="Apply as radial gradient"
       >
-        ⭕️ Radial
+        <span>⭕️</span>
+        Radial
       </button>
       <button 
         className="gradient-button"
         onClick={() => handleGradient('ANGULAR')}
         title="Apply as angular gradient"
       >
-        🔄 Angular
+        <span>🔄</span>
+        Angular
       </button>
       <button 
         className="gradient-button"
         onClick={() => handleGradient('DIAMOND')}
         title="Apply as diamond gradient"
       >
-        💎 Diamond
+        <span>💎</span>
+        Diamond
       </button>
     </div>
   );
