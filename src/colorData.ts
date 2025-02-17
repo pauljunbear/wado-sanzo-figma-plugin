@@ -1,6 +1,6 @@
 import colorJson from './colors.json';
 
-interface Color {
+export interface Color {
   name: string;
   combinations: number[];
   swatch: number;
@@ -10,20 +10,24 @@ interface Color {
   hex: string;
 }
 
-interface ColorCombination {
+export interface ColorCombination {
   name: string;
   colors: number[];
   type: 'duo' | 'trio' | 'quad';
 }
 
-interface ColorData {
+export interface ColorData {
   colors: Color[];
   combinations: ColorCombination[];
 }
 
 console.log('Total colors loaded:', colorJson.length);
 
+// Initialize and export the color data
 export const colorData: ColorData = {
   colors: colorJson,
   combinations: []
-}; 
+};
+
+// Export colors directly for backward compatibility
+export const colors: { colors: Color[] } = { colors: colorJson }; 
