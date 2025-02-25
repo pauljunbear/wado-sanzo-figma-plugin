@@ -172,20 +172,16 @@ const App: React.FC = () => {
   }, []);
 
   const handleColorClick = (color: Color) => {
+    // First scroll to top immediately
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
+    
+    // Then update state
     const colorCombos = calculateCombinations(color);
     setSelectedColor(color);
     setCombinations(colorCombos);
     setView('combinations');
-    
-    // Ensure we scroll to the top after state updates
-    setTimeout(() => {
-      if (containerRef.current) {
-        containerRef.current.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
-    }, 0);
   };
 
   const handleGenerate = () => {
@@ -227,24 +223,20 @@ const App: React.FC = () => {
 
   const handleBackClick = () => {
     if (view === 'combinations') {
+      // First scroll to top immediately
+      if (containerRef.current) {
+        containerRef.current.scrollTop = 0;
+      }
+      
+      // Then update state
       setView('grid');
       setSelectedColor(null);
       setCombinations([]);
-      
-      // Ensure we scroll to the top after state updates
-      setTimeout(() => {
-        if (containerRef.current) {
-          containerRef.current.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        }
-      }, 0);
     }
   };
 
   return (
-    <div className="bg-background min-h-screen p-4" ref={containerRef}>
+    <div className="bg-background min-h-screen p-4 overflow-auto" ref={containerRef}>
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">Sanzo Wada Color Library</h1>

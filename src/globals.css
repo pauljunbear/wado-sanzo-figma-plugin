@@ -277,6 +277,10 @@ p {
   overflow: hidden;
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .rounded-md {
   border-radius: 0.375rem;
 }
