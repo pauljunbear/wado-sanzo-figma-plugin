@@ -5,7 +5,9 @@ import { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { colorData } from './colorData';
-import './ui.css';
+import { ThemeToggle } from './components/theme-toggle';
+import { Search } from 'lucide-react';
+import './globals.css';
 
 interface Color {
   name: string;
@@ -56,37 +58,29 @@ const calculateCombinations = (color: Color): ColorCombo[] => {
 const ColorCard: React.FC<ColorCardProps> = ({ color, onClick }) => {
   return (
     <motion.div
-      className="color-item"
       onClick={() => onClick(color)}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{
-        y: -8,
+        y: -5,
         scale: 1.02,
         transition: { type: "spring", stiffness: 300, damping: 20 }
       }}
       whileTap={{ scale: 0.98 }}
     >
-      <motion.div
-        className="glass-overlay"
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.2 }}
-      />
-      <motion.div
-        className="color-swatch"
-        style={{ backgroundColor: color.hex }}
-      />
-      <motion.div 
-        className="color-label"
-        whileHover={{ y: -2 }}
-      >
-        <span className="color-name">{color.name}</span>
-        <span className="color-hex">hex: {color.hex}</span>
-        <span className="combinations-count">
-          {calculateCombinations(color).length} combinations
-        </span>
-      </motion.div>
+      <div className="card">
+        <div 
+          className="w-full h-24" 
+          style={{ backgroundColor: color.hex }}
+        />
+        <div className="p-3">
+          <h3 className="font-medium text-base text-foreground">{color.name}</h3>
+          <p className="text-xs text-muted-foreground">hex: {color.hex}</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            {calculateCombinations(color).length} combinations
+          </p>
+        </div>
+      </div>
     </motion.div>
   );
 };
@@ -106,37 +100,33 @@ const GradientButtons: React.FC<GradientButtonsProps> = ({ colors }) => {
   };
 
   return (
-    <div className="gradient-actions">
+    <div className="flex flex-wrap gap-1 mt-3">
       <button 
-        className="gradient-button"
+        className="button button-outline button-xs flex-1"
         onClick={() => handleGradient('LINEAR')}
-        title="Apply as linear gradient"
       >
-        <span>↗️</span>
+        <span className="mr-1">↗️</span>
         Linear
       </button>
       <button 
-        className="gradient-button"
+        className="button button-outline button-xs flex-1"
         onClick={() => handleGradient('RADIAL')}
-        title="Apply as radial gradient"
       >
-        <span>⭕️</span>
+        <span className="mr-1">⭕️</span>
         Radial
       </button>
       <button 
-        className="gradient-button"
+        className="button button-outline button-xs flex-1"
         onClick={() => handleGradient('ANGULAR')}
-        title="Apply as angular gradient"
       >
-        <span>🔄</span>
+        <span className="mr-1">🔄</span>
         Angular
       </button>
       <button 
-        className="gradient-button"
+        className="button button-outline button-xs flex-1"
         onClick={() => handleGradient('DIAMOND')}
-        title="Apply as diamond gradient"
       >
-        <span>💎</span>
+        <span className="mr-1">💎</span>
         Diamond
       </button>
     </div>
@@ -237,102 +227,99 @@ const App: React.FC = () => {
   };
 
   return (
-    <motion.div 
-      className="container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <h1>Sanzo Wada Color Library</h1>
-      
-      <div className="header">
-        <div className="search-container">
-          <span className="search-icon">🔍</span>
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
+    <div className="bg-background min-h-screen p-4" ref={containerRef}>
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold">Sanzo Wada Color Library</h1>
+          <ThemeToggle />
         </div>
-        {view === 'combinations' && (
-          <button className="back-button" onClick={handleBackClick}>
-            ← Back
-          </button>
-        )}
-        <button className="generate-button" onClick={handleGenerate}>
-          <span className="plus-icon">+</span>
-          Generate
-        </button>
-      </div>
-
-      {selectedColor && view === 'combinations' && (
-        <div className="selected-color-details">
-          <div className="color-preview-large" style={{ backgroundColor: selectedColor.hex }} />
-          <div className="color-info">
-            <h2>{selectedColor.name}</h2>
-            <p className="hex-code">hex: {selectedColor.hex}</p>
-            <p className="color-values">{formatColorValues(selectedColor).cmyk}</p>
-            <p className="color-values">{formatColorValues(selectedColor).rgb}</p>
-            <p>{combinations.length} combinations</p>
+        
+        <div className="flex items-center gap-2 mb-6">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform text-muted-foreground" style={{ width: '16px', height: '16px' }} />
+            <input
+              type="text"
+              placeholder="Search colors..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="input pl-10"
+            />
           </div>
           
-          <div className="combinations-grid">
-            {combinations.map((combo, index) => (
-              <div key={combo.id} className="combination-set">
-                <div className="combination-content">
-                  <h3>Set {index + 1}</h3>
-                  <div className="combination-swatches">
-                    {[selectedColor, ...combo.colors].map((color, i) => (
-                      <div
-                        key={i}
-                        className="combo-swatch"
-                        style={{ backgroundColor: color.hex }}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCopyHex(color.hex);
-                          
-                          const target = e.currentTarget;
-                          const tooltip = document.createElement('div');
-                          tooltip.className = 'copy-tooltip';
-                          tooltip.textContent = 'Copied!';
-                          target.appendChild(tooltip);
-                          
-                          setTimeout(() => {
-                            target.removeChild(tooltip);
-                          }, 1000);
-                        }}
-                      />
-                    ))}
+          {view === 'combinations' && (
+            <button className="button button-outline" onClick={handleBackClick}>
+              ← Back
+            </button>
+          )}
+          
+          <button className="button button-default" onClick={handleGenerate}>
+            Generate
+          </button>
+        </div>
+
+        {selectedColor && view === 'combinations' && (
+          <div className="mb-6">
+            <div className="card">
+              <div 
+                className="w-full h-32" 
+                style={{ backgroundColor: selectedColor.hex }} 
+              />
+              <div className="p-4">
+                <h2 className="text-xl font-bold mb-2">{selectedColor.name}</h2>
+                <p className="text-sm text-muted-foreground mb-1">hex: {selectedColor.hex}</p>
+                <p className="text-sm text-muted-foreground mb-1">{formatColorValues(selectedColor).cmyk}</p>
+                <p className="text-sm text-muted-foreground mb-3">{formatColorValues(selectedColor).rgb}</p>
+                <p className="text-sm font-medium">{combinations.length} combinations</p>
+              </div>
+            </div>
+            
+            <div className="grid gap-3 mt-4">
+              {combinations.map((combo, index) => (
+                <div key={combo.id} className="card">
+                  <div className="p-3">
+                    <h3 className="text-base font-medium mb-2">Set {index + 1}</h3>
+                    <div className="flex gap-2 flex-wrap">
+                      {[selectedColor, ...combo.colors].map((color, i) => (
+                        <div
+                          key={i}
+                          className="w-10 h-10 rounded-md cursor-pointer transition-transform hover:scale-110 active:scale-95"
+                          style={{ backgroundColor: color.hex }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCopyHex(color.hex);
+                          }}
+                          title={`${color.name} - ${color.hex}`}
+                        />
+                      ))}
+                    </div>
+                    <GradientButtons colors={[selectedColor, ...combo.colors]} />
                   </div>
                 </div>
-                <GradientButtons colors={[selectedColor, ...combo.colors]} />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-
-      <AnimatePresence>
-        {view === 'grid' && (
-          <motion.div 
-            className="color-grid"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {filteredColors.map((color: Color, index: number) => (
-              <ColorCard 
-                key={color.hex} 
-                color={color} 
-                onClick={handleColorClick}
-              />
-            ))}
-          </motion.div>
         )}
-      </AnimatePresence>
-    </motion.div>
+
+        <AnimatePresence>
+          {view === 'grid' && (
+            <motion.div 
+              className="grid grid-cols-4 gap-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {filteredColors.map((color: Color) => (
+                <ColorCard 
+                  key={color.hex} 
+                  color={color} 
+                  onClick={handleColorClick}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 };
 
