@@ -67,18 +67,21 @@ const ColorCard: React.FC<ColorCardProps> = ({ color, onClick }) => {
         transition: { type: "spring", stiffness: 300, damping: 20 }
       }}
       whileTap={{ scale: 0.98 }}
+      className="h-full"
     >
-      <div className="card">
+      <div className="card h-full flex flex-col">
         <div 
           className="w-full h-24" 
           style={{ backgroundColor: color.hex }}
         />
-        <div className="p-3 text-center">
+        <div className="p-3 text-center flex-1 flex flex-col justify-between">
           <h3 className="font-medium text-base text-foreground mb-2 pt-1">{color.name}</h3>
-          <p className="text-xs text-muted-foreground mb-2">hex: {color.hex}</p>
-          <p className="text-xs text-muted-foreground pb-1">
-            {calculateCombinations(color).length} combinations
-          </p>
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">hex: {color.hex}</p>
+            <p className="text-xs text-muted-foreground pb-1">
+              {calculateCombinations(color).length} combinations
+            </p>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -173,9 +176,16 @@ const App: React.FC = () => {
     setSelectedColor(color);
     setCombinations(colorCombos);
     setView('combinations');
-    if (containerRef.current) {
-      containerRef.current.scrollTop = 0;
-    }
+    
+    // Ensure we scroll to the top after state updates
+    setTimeout(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }, 0);
   };
 
   const handleGenerate = () => {
@@ -220,9 +230,16 @@ const App: React.FC = () => {
       setView('grid');
       setSelectedColor(null);
       setCombinations([]);
-      if (containerRef.current) {
-        containerRef.current.scrollTop = 0;
-      }
+      
+      // Ensure we scroll to the top after state updates
+      setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+      }, 0);
     }
   };
 
