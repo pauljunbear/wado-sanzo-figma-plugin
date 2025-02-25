@@ -73,10 +73,10 @@ const ColorCard: React.FC<ColorCardProps> = ({ color, onClick }) => {
           className="w-full h-24" 
           style={{ backgroundColor: color.hex }}
         />
-        <div className="p-3">
-          <h3 className="font-medium text-base text-foreground">{color.name}</h3>
-          <p className="text-xs text-muted-foreground">hex: {color.hex}</p>
-          <p className="text-xs text-muted-foreground mt-1">
+        <div className="p-3 text-center">
+          <h3 className="font-medium text-base text-foreground mb-2 pt-1">{color.name}</h3>
+          <p className="text-xs text-muted-foreground mb-2">hex: {color.hex}</p>
+          <p className="text-xs text-muted-foreground pb-1">
             {calculateCombinations(color).length} combinations
           </p>
         </div>
@@ -100,7 +100,7 @@ const GradientButtons: React.FC<GradientButtonsProps> = ({ colors }) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-1 mt-3">
+    <div className="flex flex-wrap gap-1 mt-3 justify-center">
       <button 
         className="button button-outline button-xs flex-1"
         onClick={() => handleGradient('LINEAR')}
@@ -264,12 +264,12 @@ const App: React.FC = () => {
                 className="w-full h-32" 
                 style={{ backgroundColor: selectedColor.hex }} 
               />
-              <div className="p-4">
-                <h2 className="text-xl font-bold mb-2">{selectedColor.name}</h2>
-                <p className="text-sm text-muted-foreground mb-1">hex: {selectedColor.hex}</p>
-                <p className="text-sm text-muted-foreground mb-1">{formatColorValues(selectedColor).cmyk}</p>
+              <div className="p-4 text-center">
+                <h2 className="text-xl font-bold mb-3 pt-1">{selectedColor.name}</h2>
+                <p className="text-sm text-muted-foreground mb-2">hex: {selectedColor.hex}</p>
+                <p className="text-sm text-muted-foreground mb-2">{formatColorValues(selectedColor).cmyk}</p>
                 <p className="text-sm text-muted-foreground mb-3">{formatColorValues(selectedColor).rgb}</p>
-                <p className="text-sm font-medium">{combinations.length} combinations</p>
+                <p className="text-sm font-medium pb-1">{combinations.length} combinations</p>
               </div>
             </div>
             
@@ -277,8 +277,8 @@ const App: React.FC = () => {
               {combinations.map((combo, index) => (
                 <div key={combo.id} className="card">
                   <div className="p-3">
-                    <h3 className="text-base font-medium mb-2">Set {index + 1}</h3>
-                    <div className="flex gap-2 flex-wrap">
+                    <h3 className="text-base font-medium mb-3 text-center">Set {index + 1}</h3>
+                    <div className="flex gap-2 flex-wrap justify-center">
                       {[selectedColor, ...combo.colors].map((color, i) => (
                         <div
                           key={i}
